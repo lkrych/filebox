@@ -7,6 +7,7 @@ const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 
 var app = express();
+
 //serve assets from public folder using static middleware
 app.use(express.static(publicPath));
 
@@ -15,18 +16,20 @@ var storage = multer.diskStorage({ //store files onserver in /tmp/uploads folder
     cb(null, storagePath);
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now());
+    cb(null, file.originalname + '-' + Date.now());
   }
 });
 var upload = multer({ storage }).single('file');
 
 app.post('/', function (req, res) {
-  console.log('hitting post');
   upload(req, res, function (err) {
     if (err) {
       // An error occurred when uploading
       console.log('There was an error: ', err);
-      res.status(404).send({});
+      res.status(404).send({
+        success: false,
+        message: "File was not uploaded."
+      });
       return;
     }
     // Everything went fine
