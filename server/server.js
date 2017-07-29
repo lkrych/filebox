@@ -16,7 +16,10 @@ var storage = multer.diskStorage({ //store files onserver in /tmp/uploads folder
     cb(null, storagePath);
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname + '-' + Date.now());
+    var nameAndSuffix = file.originalname.split('.');
+    var fileName = nameAndSuffix[0];
+    var suffix = nameAndSuffix[1];
+    cb(null, fileName + '-' + Date.now() + "." + suffix);
   }
 });
 var upload = multer({ storage }).single('file');
