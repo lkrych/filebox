@@ -22,3 +22,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.form-uploader {
+  text-align: left;
+  padding-left: 1vw;
+}
+
+input {
+  display: block;
+}
+textarea {
+  display: block;
+}
