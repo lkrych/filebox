@@ -11,21 +11,33 @@ var app = express();
 //serve assets from public folder using static middleware
 app.use(express.static(publicPath));
 
-var storage = multer.diskStorage({ //store files onserver in /tmp/uploads folder
-  destination: function (req, file, cb) {
-    cb(null, storagePath);
-  },
-  filename: function (req, file, cb) {
-    var nameAndSuffix = file.originalname.split('.');
-    var fileName = nameAndSuffix[0];
-    var suffix = nameAndSuffix[1];
-    cb(null, fileName + '-' + Date.now() + "." + suffix);
-  }
+var storage = require('multer-gridfs-storage')({
+   url: 'mongodb://localhost:27017/fileDatabase',
+   metadata: function(req, file, cb) {
+           cb(null, { originalName: file.originalname,
+                      givenName: req.body.filename,
+                      givenDescription: req.body.fileDescription,
+                      contentType: file.mimetype});
+       }
 });
-var upload = multer({ storage }).single('file');
+// Set multer storage engine to the newly created object
+var upload = multer({ storage: storage });
+
+// var storage = multer.diskStorage({ //store files onserver in /tmp/uploads folder
+//   destination: function (req, file, cb) {
+//     cb(null, storagePath);
+//   },
+//   filename: function (req, file, cb) {
+//     var nameAndSuffix = file.originalname.split('.');
+//     var fileName = nameAndSuffix[0];
+//     var suffix = nameAndSuffix[1];
+//     cb(null, fileName + '-' + Date.now() + "." + suffix);
+//   }
+// });
+// var upload = multer({ storage }).single('file');
 
 app.post('/', function (req, res) {
-  upload(req, res, function (err) {
+  upload.single('file')(req, res, function (err) {
     if (err) {
       // An error occurred when uploading
       console.log('There was an error: ', err);
