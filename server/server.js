@@ -17,7 +17,8 @@ var storage = require('multer-gridfs-storage')({
            cb(null, { originalName: file.originalname,
                       givenName: req.body.filename,
                       givenDescription: req.body.fileDescription,
-                      contentType: file.mimetype});
+                      contentType: file.mimetype,
+                      dateCreated: file.uploadDate});
        }
 });
 // Set multer storage engine to the newly created object
