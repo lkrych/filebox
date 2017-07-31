@@ -23,19 +23,6 @@ var storage = require('multer-gridfs-storage')({
 // Set multer storage engine to the newly created object
 var upload = multer({ storage: storage });
 
-// var storage = multer.diskStorage({ //store files onserver in /tmp/uploads folder
-//   destination: function (req, file, cb) {
-//     cb(null, storagePath);
-//   },
-//   filename: function (req, file, cb) {
-//     var nameAndSuffix = file.originalname.split('.');
-//     var fileName = nameAndSuffix[0];
-//     var suffix = nameAndSuffix[1];
-//     cb(null, fileName + '-' + Date.now() + "." + suffix);
-//   }
-// });
-// var upload = multer({ storage }).single('file');
-
 app.post('/', function (req, res) {
   upload.single('file')(req, res, function (err) {
     if (err) {
