@@ -19,9 +19,7 @@ class FileUploader extends Component {
     data.append('originalFileName', event.target.file.files[0].name);
     data.append('givenFileName', event.target.fileName.value);
     data.append('fileDescription', event.target.fileDescription.value);
-    console.log('blah blah blah');
-    console.log('Inside uploadFile: ', data);
-    debugger;
+    
   }
 
   render(){
