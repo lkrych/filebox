@@ -18,7 +18,7 @@ export function uploadFile(fileData) {
   const request = axios.post(`${ROOT_URL}`, fileData);
 
   return {
-    type: FETCH_FILES,
+    type: UPLOAD_FILE,
     payload: request
   };
 }

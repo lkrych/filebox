@@ -13,6 +13,7 @@ class App extends Component {
           <h2>Welcome to Filebox</h2>
         </div>
         <FileUploader />
+
       </div>
     );
   }
