@@ -1,6 +1,7 @@
 const path = require('path'); //built in module
 const express = require('express');
 const multer  = require('multer');
+const cors = require('cors');
 
 const storagePath = path.join(__dirname, '../tmp');
 const publicPath = path.join(__dirname, '../public');
@@ -10,6 +11,7 @@ var app = express();
 
 //serve assets from public folder using static middleware
 app.use(express.static(publicPath));
+app.use(cors());
 
 var storage = require('multer-gridfs-storage')({
    url: 'mongodb://localhost:27017/fileDatabase',
@@ -42,6 +44,10 @@ app.post('/', function (req, res) {
       message: "File uploaded"
     });
   });
+});
+
+app.get('/files', function(req, res) {
+
 });
 
 app.listen(port, () => {

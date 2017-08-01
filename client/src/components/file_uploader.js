@@ -20,9 +20,10 @@ class FileUploader extends Component {
     event.preventDefault();
     data.append('file', event.target.file.files[0]);
     data.append('originalFileName', event.target.file.files[0].name);
-    data.append('givenFileName', event.target.fileName.value);
+    data.append('givenName', event.target.fileName.value);
     data.append('fileDescription', event.target.fileDescription.value);
-
+    data.append('dateCreated', Date.now());
+    this.props.uploadFile(data);
   }
 
   render(){
@@ -30,7 +31,7 @@ class FileUploader extends Component {
       <div>
       <h1> JSX is rendering </h1>
         <form
-        onSubmit={this.uploadFile}
+        onSubmit={this.uploadFile.bind(this)}
         className="form-uploader"
         encType="multipart/form-data">
           <label htmlFor="fileName">File Name:
