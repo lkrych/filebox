@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { uploadFile } from '../actionz';
 
 class FileUploader extends Component {
   constructor(props){
@@ -19,7 +22,7 @@ class FileUploader extends Component {
     data.append('originalFileName', event.target.file.files[0].name);
     data.append('givenFileName', event.target.fileName.value);
     data.append('fileDescription', event.target.fileDescription.value);
-    
+
   }
 
   render(){
@@ -50,4 +53,4 @@ class FileUploader extends Component {
   }
 }
 
-export default FileUploader;
+export default connect(null, { uploadFile })(FileUploader);

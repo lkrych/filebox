@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import FileUploader from './components/file_uploader';
+import FilesShow from './components/files_show';
 
 class App extends Component {
   render() {
@@ -12,8 +13,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to Filebox</h2>
         </div>
+        <FilesShow />
         <FileUploader />
-
       </div>
     );
   }
